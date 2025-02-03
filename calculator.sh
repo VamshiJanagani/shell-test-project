@@ -4,3 +4,5 @@
 #######
 #Addition function
 x=1+2
+
+#Multiply function
