@@ -6,3 +6,6 @@
 x=1+2
 
 #Multiply function
+
+
+#Division function
