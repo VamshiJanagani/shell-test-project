@@ -12,4 +12,5 @@ x=1+2
 #Division function changed in Division branch
 #Division function changed in main branch
 
-echo "Example of git merge in ExampleMerge branch"
+echo "Example of Rebase in ExampleRebase Branch"
+
