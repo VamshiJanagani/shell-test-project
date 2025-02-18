@@ -1,6 +1,6 @@
 name: Python Tests
 
-on: [push, pull_request]  # Runs when code is pushed or a PR is created
+on: [push, pull_request]  # Runs on every push or PR
 
 jobs:
   test:
@@ -10,14 +10,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4  # Get repo code
 
-      - name: Set up Docker
-        run: docker run --rm python:3.12 bash -c "python --version"  # Test Docker with Python
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Install latest Python
+        with:
+          python-version: "3.12"
 
-      - name: Create virtual environment
+      - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install pytest
+          python -m pip install --upgrade pip
+          pip install pytest  # Install pytest globally
 
       - name: Run tests
-        run: pytest test_script.py  # Running tests
+        run: pytest test_script.py  # Execute tests
