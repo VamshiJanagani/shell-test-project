@@ -1,24 +1,27 @@
 name: Python Tests
 
-on: [push, pull_request]  # Runs on every push or PR
+on: [push, pull_request]  # Runs on push and PRs
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # Use a GitHub-hosted Linux server
+    runs-on: ubuntu-latest  
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4  # Get repo code
+        uses: actions/checkout@v4  
 
       - name: Set up Python
-        uses: actions/setup-python@v4  # Install latest Python
+        uses: actions/setup-python@v4  
         with:
           python-version: "3.12"
+
+      - name: Debug - List Files
+        run: ls -R  # Check if test_script.py exists
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest  # Install pytest globally
+          pip install pytest
 
       - name: Run tests
-        run: pytest test_script.py  # Execute tests
+        run: pytest test_script.py || exit 1  # Force fail if tests don't run
