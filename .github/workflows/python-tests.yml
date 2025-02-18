@@ -1,27 +1,30 @@
 name: Python Tests
 
-on: [push, pull_request]  # Runs on push and PRs
+on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4  
 
-      - name: Set up Python
-        uses: actions/setup-python@v4  
-        with:
-          python-version: "3.12"
-
-      - name: Debug - List Files
-        run: ls -R  # Check if test_script.py exists
+      - name: Debug - Show Python Version & Path
+        run: |
+          which python
+          python --version
+          which pip
+          pip --version
 
       - name: Install dependencies
         run: |
+          python -m ensurepip --default-pip
           python -m pip install --upgrade pip
           pip install pytest
 
+      - name: Debug - Check Files
+        run: ls -R
+
       - name: Run tests
-        run: pytest test_script.py || exit 1  # Force fail if tests don't run
+        run: python -m pytest test_script.py || exit 1
